@@ -50,6 +50,9 @@ class MahasiswaController extends Controller
         $file_belmawa->move($tujuan_upload,$nama_file_belmawa);
         $file_ktln->move($tujuan_upload,$nama_file_ktln);
 
+        //coba upload cara baru
+        $file_surat_uns = $request->file('file_surat_uns')->store('file_surat_uns');
+
         Mahasiswa::insert([
             'nama_mhs' => $request->nama_mhs,
             'jumlah_orang'=> $request->jumlah_orang,
