@@ -15,7 +15,10 @@ class CVController extends Controller
      */
     public function index()
     {
-        //
+        $cv = CV::get();
+        return view('cv.index', [
+            'cv' => $cv
+        ]);
     }
 
     /**
@@ -25,7 +28,8 @@ class CVController extends Controller
      */
     public function create()
     {
-        //
+        return view('cv.create');
+
     }
 
     /**
@@ -45,9 +49,11 @@ class CVController extends Controller
      * @param  \App\Models\CV  $cV
      * @return \Illuminate\Http\Response
      */
-    public function show(CV $cV)
+    public function show(CV $cv)
     {
-        //
+        return view('cv.show', [
+            'cv' => $cv
+        ]);
     }
 
     /**
@@ -56,9 +62,12 @@ class CVController extends Controller
      * @param  \App\Models\CV  $cV
      * @return \Illuminate\Http\Response
      */
-    public function edit(CV $cV)
+    public function edit(CV $cv)
     {
-        //
+        return view('cv.edit',[
+            'cv' => $cv
+        ]);
+
     }
 
     /**
@@ -68,7 +77,7 @@ class CVController extends Controller
      * @param  \App\Models\CV  $cV
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CV $cV)
+    public function update(Request $request, CV $cv)
     {
         //
     }
@@ -79,8 +88,11 @@ class CVController extends Controller
      * @param  \App\Models\CV  $cV
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CV $cV)
+    public function destroy(CV $cv)
     {
-        //
+        CV::destroy($cv);
+
+        return redirect('/cv')
+        ->with('success', 'data berhasil dihapus');
     }
 }

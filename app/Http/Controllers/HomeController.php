@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FAQ;
-use App\Models\Berita;
-use App\Models\Pengumuman;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\CV;
+use App\Models\FAQ;
+use App\Models\Pdln;
 use App\Models\Dosen;
-use App\Models\Internasional;
-use App\Models\JasaKeuangan;
+use App\Models\Mitra;
+use App\Models\Berita;
+use App\Models\Sekolah;
+use App\Models\Pimpinan;
 use App\Models\Mahasiswa;
 use App\Models\Pemerintah;
-use App\Models\Pimpinan;
-use App\Models\Sekolah;
+use App\Models\Pengumuman;
+use App\Models\JasaKeuangan;
+use Illuminate\Http\Request;
+use App\Models\Internasional;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -35,14 +37,15 @@ class HomeController extends Controller
 
     public function mitra()
     {
-        $sekolah = Sekolah::get();
-        $cv = CV::get();
-        $jasa_keuangan = JasaKeuangan::get();
-        $internasional = Internasional::get();
-        $pemerintah = Pemerintah::get();
+        $yayasan = Mitra::where('instansi', 'yayasan')->latest()->get();
+        $cv = Mitra::where('instansi', 'cv')->latest()->get();
+        $internasional = Mitra::where('instansi', 'internasional')->latest()->get();
+        $jasa_keuangan = Mitra::where('instansi', 'jasa_keuangan')->latest()->get();
+        $pemerintah = Mitra::where('instansi', 'pemerintah')->latest()->get();
+
 
         return view('home.mitra',[
-            'sekolah' => $sekolah,
+            'sekolah' => $yayasan,
             'cv' => $cv,
             'jasa_keuangan' => $jasa_keuangan,
             'internasional' => $internasional,
@@ -54,9 +57,10 @@ class HomeController extends Controller
 
     public function pdln()
     {
-        $mahasiswa = Mahasiswa::get();
-        $dosen = Dosen::get();
-        $pimpinan = Pimpinan::get();
+        $mahasiswa = Pdln::where('jenis', 'mahasiswa')->latest()->get();
+        $dosen = Pdln::where('jenis', 'dosen')->latest()->get();
+        $pimpinan = Pdln::where('jenis', 'pimpinan')->latest()->get();
+
 
         return view('home.pdln',[
             'mahasiswa' => $mahasiswa,

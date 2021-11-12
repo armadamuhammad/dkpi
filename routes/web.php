@@ -1,13 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CVController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PdlnController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MitraController;
+use App\Http\Controllers\SekolahController;
+use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\PimpinanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +38,16 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::resource('mahasiswa', MahasiswaController::class);
-Route::resource('Dosen', DosenController::class);
-Route::resource('pimpinan', PimpinanController::class);
-Route::resource('sekolah', SekolahController::class);
-Route::resource('cv', CVController::class);
-Route::resource('yayasan', YayasanController::class);
-Route::resource('jasaKeuangan', JasaKeuanganController::class);
+Route::resource('/mitra', MitraController::class);
+Route::resource('/pdln', PdlnController::class);
+
+// Route::resource('mahasiswa', MahasiswaController::class);
+// Route::resource('Dosen', DosenController::class);
+// Route::resource('pimpinan', PimpinanController::class);
+// Route::resource('sekolah', SekolahController::class);
+// Route::resource('cv', CVController::class);
+// Route::resource('yayasan', YayasanController::class);
+// Route::resource('jasaKeuangan', JasaKeuanganController::class);
 
 // Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
 // Route::get('/mahasiswa/create', [MahasiswaController::class, 'create']);

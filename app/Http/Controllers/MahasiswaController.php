@@ -16,7 +16,9 @@ class MahasiswaController extends Controller
     public function index()
     {
         $mahasiswa =  Mahasiswa::get();
-        return view('mahasiswa.index', ['mahasiswa'=> $mahasiswa]);
+        return view('mahasiswa.index', [
+            'mahasiswa'=> $mahasiswa
+        ]);
     }
 
     /**
@@ -51,24 +53,26 @@ class MahasiswaController extends Controller
         // $file_ktln->move($tujuan_upload,$nama_file_ktln);
 
         // //coba upload cara baru
-        // $file_surat_uns = $request->file('file_surat_uns')->store('file_surat_uns');
+        $file_surat_uns = $request->file('file_surat_uns')->store('file_surat_uns');
+        $file_belmawa = $request->file('file_belmawa')->store('file_belmawa');
+        $file_ktln = $request->file('file_ktln')->store('file_ktln');
 
         // Mahasiswa::insert([
         //     'nama_mhs' => $request->nama_mhs,
         //     'jumlah_orang'=> $request->jumlah_orang,
         //     'unit_kerja'=> $request->unit_kerja,
         //     'jangka_waktu_awal'=>$request->jangka_waktu_awal,
-        //     'jangka_waktu_akhir'=>$request->jangka_waktu_akhir,
-        //     'tujuan'=>$request->tujuan,
-        //     'negara'=>$request->negara,
-        //     'surat_uns'=>$request->surat_uns,
-        //     'catatan_uns'=>$request->catatan_uns,
-        //     'belmawa'=>$request->belmawa,
-        //     'catatan_belmawa'=>$request->catatan_belmawa,
+            // 'jangka_waktu_akhir'=>$request->jangka_waktu_akhir,
+            // 'tujuan'=>$request->tujuan,
+            // 'negara'=>$request->negara,
+            // 'surat_uns'=>$request->surat_uns,
+            // 'catatan_uns'=>$request->catatan_uns,
+            // 'belmawa'=>$request->belmawa,
+            // 'catatan_belmawa'=>$request->catatan_belmawa,
         //     'ktln_kemensetneg'=>$request->ktln_kemensetneg,
         //     'catatan_setneg'=>$request->catatan_setneg,
         //     'file_surat_uns'=>$request->file_surat_uns,
-        //     'file_belmawa'=>$request->file_belmawa,
+        // 'file_belmawa'=>$request->file_belmawa,
         //     'file_ktln'=>$request->file_ktln,
         //     'status_hidden'=>$request->status_hidden,
         //     'status'=>$request->status
@@ -88,16 +92,17 @@ class MahasiswaController extends Controller
                 'catatan_belmawa'=> 'required',
                 'ktln_kemensetneg'=> 'required',
                 'catatan_setneg'=> 'required',
-                'file_surat_uns'=> 'required',
-                'file_belmawa'=> 'required',
-                'file_ktln'=> 'required',
+
                 'status_hidden'=> 'required',
                 'status'=> 'required'
               ]);
+        $validatedData['file_surat_uns'] = $file_surat_uns;
+        $validatedData['file_belmawa'] = $file_belmawa;
+        $validatedData['file_ktln'] = $file_ktln;
 
         Mahasiswa::create($validatedData);
 
-        return redirect('/mahasiswa')->with('status', 'Data berhasil ditambah!');
+        return redirect('/mahasiswa')->with('success', 'Data berhasil ditambah!');
     }
 
     /**

@@ -15,7 +15,7 @@ class FAQController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
