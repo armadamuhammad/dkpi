@@ -15,7 +15,8 @@ class PengaduanController extends Controller
      */
     public function index()
     {
-        //
+        $pengaduans = Pengaduan::all();
+        return view('pengaduan.index', ['pengaduans' => $pengaduans]);
     }
 
     /**

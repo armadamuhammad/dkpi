@@ -2,85 +2,78 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Home;
-use App\Http\Controllers\Controller;
+use App\Models\FAQ;
+use App\Models\Berita;
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\CV;
+use App\Models\Dosen;
+use App\Models\Internasional;
+use App\Models\JasaKeuangan;
+use App\Models\Mahasiswa;
+use App\Models\Pemerintah;
+use App\Models\Pimpinan;
+use App\Models\Sekolah;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $faq = FAQ::get();
+        $pengumuman = Pengumuman::get();
+        $berita = Berita::get();
+
+        return view('home.index',[
+            'title' => 'DKPI - UNS',
+            'faq' => $faq,
+            'pengumuman' => $pengumuman,
+            'berita' => $berita
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function mitra()
     {
-        //
+        $sekolah = Sekolah::get();
+        $cv = CV::get();
+        $jasa_keuangan = JasaKeuangan::get();
+        $internasional = Internasional::get();
+        $pemerintah = Pemerintah::get();
+
+        return view('home.mitra',[
+            'sekolah' => $sekolah,
+            'cv' => $cv,
+            'jasa_keuangan' => $jasa_keuangan,
+            'internasional' => $internasional,
+            'pemerintah' => $pemerintah
+        ]);
+
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function pdln()
     {
-        //
+        $mahasiswa = Mahasiswa::get();
+        $dosen = Dosen::get();
+        $pimpinan = Pimpinan::get();
+
+        return view('home.pdln',[
+            'mahasiswa' => $mahasiswa,
+            'dosen' => $dosen,
+            'pimpinan' => $pimpinan
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Home  $home
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Home $home)
+    public function layanan()
     {
-        //
+        return view('home.layanan');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Home  $home
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Home $home)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Home  $home
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Home $home)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Home  $home
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Home $home)
-    {
-        //
-    }
+
+
+
+
 }

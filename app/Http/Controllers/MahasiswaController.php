@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class MahasiswaController extends Controller
 {
@@ -15,7 +15,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa =  Mahasiswa::all();
+        $mahasiswa =  Mahasiswa::get();
         return view('mahasiswa.index', ['mahasiswa'=> $mahasiswa]);
     }
 
@@ -37,45 +37,67 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $file_surat_uns = $request->file('file_surat_uns');
-        $file_belmawa = $request->file('file_belmawa');
-        $file_ktln = $request->file('file_ktln');
+        // $file_surat_uns = $request->file('file_surat_uns');
+        // $file_belmawa = $request->file('file_belmawa');
+        // $file_ktln = $request->file('file_ktln');
 
-        $nama_file_surat_uns = time().'_'.$file_surat_uns->getClientOriginalName();
-        $nama_file_belmawa = time().'_'.$file_belmawa->getClientOriginalName();
-        $nama_file_ktln = time().'_'.$file_ktln->getClientOriginalName();
+        // $nama_file_surat_uns = time().'_'.$file_surat_uns->getClientOriginalName();
+        // $nama_file_belmawa = time().'_'.$file_belmawa->getClientOriginalName();
+        // $nama_file_ktln = time().'_'.$file_ktln->getClientOriginalName();
 
-        $tujuan_upload = 'data_file';
-        $file_surat_uns->move($tujuan_upload,$nama_file_surat_uns);
-        $file_belmawa->move($tujuan_upload,$nama_file_belmawa);
-        $file_ktln->move($tujuan_upload,$nama_file_ktln);
+        // $tujuan_upload = 'data_file';
+        // $file_surat_uns->move($tujuan_upload,$nama_file_surat_uns);
+        // $file_belmawa->move($tujuan_upload,$nama_file_belmawa);
+        // $file_ktln->move($tujuan_upload,$nama_file_ktln);
 
-        //coba upload cara baru
-        $file_surat_uns = $request->file('file_surat_uns')->store('file_surat_uns');
+        // //coba upload cara baru
+        // $file_surat_uns = $request->file('file_surat_uns')->store('file_surat_uns');
 
-        Mahasiswa::insert([
-            'nama_mhs' => $request->nama_mhs,
-            'jumlah_orang'=> $request->jumlah_orang,
-            'unit_kerja'=> $request->unit_kerja,
-            'jangka_waktu_awal'=>$request->jangka_waktu_awal,
-            'jangka_waktu_akhir'=>$request->jangka_waktu_akhir,
-            'tujuan'=>$request->tujuan,
-            'negara'=>$request->negara,
-            'surat_uns'=>$request->surat_uns,
-            'catatan_uns'=>$request->catatan_uns,
-            'belmawa'=>$request->belmawa,
-            'catatan_belmawa'=>$request->catatan_belmawa,
-            'ktln_kemensetneg'=>$request->ktln_kemensetneg,
-            'catatan_setneg'=>$request->catatan_setneg,
-            'file_surat_uns'=>$request->file_surat_uns,
-            'file_belmawa'=>$request->file_belmawa,
-            'file_ktln'=>$request->file_ktln,
-            'status_hidden'=>$request->status_hidden,
-            'status'=>$request->status
-        ]);
+        // Mahasiswa::insert([
+        //     'nama_mhs' => $request->nama_mhs,
+        //     'jumlah_orang'=> $request->jumlah_orang,
+        //     'unit_kerja'=> $request->unit_kerja,
+        //     'jangka_waktu_awal'=>$request->jangka_waktu_awal,
+        //     'jangka_waktu_akhir'=>$request->jangka_waktu_akhir,
+        //     'tujuan'=>$request->tujuan,
+        //     'negara'=>$request->negara,
+        //     'surat_uns'=>$request->surat_uns,
+        //     'catatan_uns'=>$request->catatan_uns,
+        //     'belmawa'=>$request->belmawa,
+        //     'catatan_belmawa'=>$request->catatan_belmawa,
+        //     'ktln_kemensetneg'=>$request->ktln_kemensetneg,
+        //     'catatan_setneg'=>$request->catatan_setneg,
+        //     'file_surat_uns'=>$request->file_surat_uns,
+        //     'file_belmawa'=>$request->file_belmawa,
+        //     'file_ktln'=>$request->file_ktln,
+        //     'status_hidden'=>$request->status_hidden,
+        //     'status'=>$request->status
+        // ]);
+
+        $validatedData = $request->validate([
+                'nama_mhs' => 'required',
+                'jumlah_orang'=> 'required',
+                'unit_kerja'=> 'required' ,
+                'jangka_waktu_awal'=> 'required',
+                'jangka_waktu_akhir'=> 'required',
+                'tujuan'=> 'required',
+                'negara'=> 'required',
+                'surat_uns'=> 'required',
+                'catatan_uns'=> 'required',
+                'belmawa'=> 'required',
+                'catatan_belmawa'=> 'required',
+                'ktln_kemensetneg'=> 'required',
+                'catatan_setneg'=> 'required',
+                'file_surat_uns'=> 'required',
+                'file_belmawa'=> 'required',
+                'file_ktln'=> 'required',
+                'status_hidden'=> 'required',
+                'status'=> 'required'
+              ]);
+
+        Mahasiswa::create($validatedData);
 
         return redirect('/mahasiswa')->with('status', 'Data berhasil ditambah!');
-
     }
 
     /**
@@ -86,6 +108,7 @@ class MahasiswaController extends Controller
      */
     public function show(Mahasiswa $mahasiswa)
     {
+        // $mahasiswa = Mahasiswa::where('id', $mahasiswa)->get();
         return view('mahasiswa.show', ['mahasiswa' => $mahasiswa]);
     }
 
@@ -97,7 +120,8 @@ class MahasiswaController extends Controller
      */
     public function edit(Mahasiswa $mahasiswa)
     {
-        return view('mahasiswa.edit', ['mahasiswa' => $mahasiswa]);
+        // $mahasiswas = DB::table('mahasiswas')->where('id',$id)->get();
+        return view('mahasiswa.edit',['mahasiswa' => $mahasiswa]);
 
     }
 
@@ -110,26 +134,30 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-        $mahasiswa->update([
-            'nama_mhs' => $request->nama_mhs,
-                'jumlah_orang'=> $request->jumlah_orang,
-                'unit_kerja'=> $request->unit_kerja,
-                'jangka_waktu_awal'=>$request->jangka_waktu_awal,
-                'jangka_waktu_akhir'=>$request->jangka_waktu_akhir,
-                'tujuan'=>$request->tujuan,
-                'negara'=>$request->negara,
-                'surat_uns'=>$request->surat_uns,
-                'catatan_uns'=>$request->catatan_uns,
-                'belmawa'=>$request->belmawa,
-                'catatan_belmawa'=>$request->catatan_belmawa,
-                'ktln_kemensetneg'=>$request->ktln_kemensetneg,
-                'catatan_setneg'=>$request->catatan_setneg,
-                'file_surat_uns'=>$request->file_surat_uns,
-                'file_belmawa'=>$request->file_belmawa,
-                'file_ktln'=>$request->file_ktln,
-                'status_hidden'=>$request->status_hidden,
-                'status'=>$request->status
-        ]);
+        $validatedData = $request->validate([
+            'nama_mhs' => 'reqiored',
+                'jumlah_orang'=> 'required',
+                'unit_kerja'=> 'required' ,
+                'jangka_waktu_awal'=> 'required',
+                'jangka_waktu_akhir'=> 'required',
+                'tujuan'=> 'required',
+                'negara'=> 'required',
+                'surat_uns'=> 'required',
+                'catatan_uns'=> 'required',
+                'belmawa'=> 'required',
+                'catatan_belmawa'=> 'required',
+                'ktln_kemensetneg'=> 'required',
+                'catatan_setneg'=> 'required',
+                'file_surat_uns'=> 'required',
+                'file_belmawa'=> 'required',
+                'file_ktln'=> 'required',
+                'status_hidden'=> 'required',
+                'status'=> 'required'
+              ]);
+
+        Mahasiswa::where('id', $mahasiswa)
+        ->update($validatedData);
+
         return redirect('/mahasiswa')->with('status', 'Data berhasil diedit!');
     }
 
@@ -142,7 +170,8 @@ class MahasiswaController extends Controller
     public function destroy(Mahasiswa $mahasiswa)
     {
         //gmana sih ini caranya
-        $mahasiswa->delete();
+        //keknya udah
+        Mahasiswa::destroy($mahasiswa);
         return redirect('/mahasiswa');
     }
 }
