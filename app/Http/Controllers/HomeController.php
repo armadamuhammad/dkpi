@@ -23,50 +23,58 @@ class HomeController extends Controller
 
     public function index()
     {
-        $faq = FAQ::get();
-        $pengumuman = Pengumuman::get();
-        $berita = Berita::get();
+        // $faq = FAQ::get();
+        // $pengumuman = Pengumuman::get();
+        // $berita = Berita::get();
+
+        // return view('home.index',[
+        //     'title' => 'DKPI - UNS',
+        //     'faq' => $faq,
+        //     'pengumuman' => $pengumuman,
+        //     'berita' => $berita
+        // ]);
 
         return view('home.index',[
-            'title' => 'DKPI - UNS',
-            'faq' => $faq,
-            'pengumuman' => $pengumuman,
-            'berita' => $berita
+            'title' => 'DKPI - UNS'
         ]);
     }
 
     public function mitra()
     {
-        $yayasan = Mitra::where('instansi', 'yayasan')->latest()->get();
-        $cv = Mitra::where('instansi', 'cv')->latest()->get();
-        $internasional = Mitra::where('instansi', 'internasional')->latest()->get();
-        $jasa_keuangan = Mitra::where('instansi', 'jasa_keuangan')->latest()->get();
-        $pemerintah = Mitra::where('instansi', 'pemerintah')->latest()->get();
+        // $yayasan = Mitra::where('instansi', 'yayasan')->latest()->get();
+        // $cv = Mitra::where('instansi', 'cv')->latest()->get();
+        // $internasional = Mitra::where('instansi', 'internasional')->latest()->get();
+        // $jasa_keuangan = Mitra::where('instansi', 'jasa_keuangan')->latest()->get();
+        // $pemerintah = Mitra::where('instansi', 'pemerintah')->latest()->get();
 
 
-        return view('home.mitra',[
-            'sekolah' => $yayasan,
-            'cv' => $cv,
-            'jasa_keuangan' => $jasa_keuangan,
-            'internasional' => $internasional,
-            'pemerintah' => $pemerintah
-        ]);
+        // return view('home.mitra',[
+        //     'sekolah' => $yayasan,
+        //     'cv' => $cv,
+        //     'jasa_keuangan' => $jasa_keuangan,
+        //     'internasional' => $internasional,
+        //     'pemerintah' => $pemerintah
+        // ]);
+
+        return view('home.mitra');
 
 
     }
 
     public function pdln()
     {
-        $mahasiswa = Pdln::where('jenis', 'mahasiswa')->latest()->get();
-        $dosen = Pdln::where('jenis', 'dosen')->latest()->get();
-        $pimpinan = Pdln::where('jenis', 'pimpinan')->latest()->get();
+        // $mahasiswa = Pdln::where('jenis', 'mahasiswa')->latest()->get();
+        // $dosen = Pdln::where('jenis', 'dosen')->latest()->get();
+        // $pimpinan = Pdln::where('jenis', 'pimpinan')->latest()->get();
 
 
-        return view('home.pdln',[
-            'mahasiswa' => $mahasiswa,
-            'dosen' => $dosen,
-            'pimpinan' => $pimpinan
-        ]);
+        // return view('home.pdln',[
+        //     'mahasiswa' => $mahasiswa,
+        //     'dosen' => $dosen,
+        //     'pimpinan' => $pimpinan
+        // ]);
+
+        return view('home.pdln');
     }
 
     public function layanan()
